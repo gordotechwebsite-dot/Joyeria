@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MicGlier Jewelry | Bright, Glam, Luxury — Barcelona</title>
+  <meta name="description" content="MicGlier Jewelry — Joyería de lujo en Barcelona. Venta de joyas exclusivas, mantenimiento profesional y diseños personalizados. Bright, Glam, Luxury." />
+  <meta name="keywords" content="joyería Barcelona, joyas de lujo, diseño personalizado joyas, mantenimiento joyas, MicGlier Jewelry, oro, diamantes, plata" />
+  <meta property="og:title" content="MicGlier Jewelry | Bright, Glam, Luxury" />
+  <meta property="og:description" content="Joyería de lujo en Barcelona. Joyas exclusivas, mantenimiento y diseños personalizados." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Floating 10% Off Badge -->
+  <div class="promo-badge" id="promoBadge">
+    <div class="promo-badge__inner">
+      <span class="promo-badge__text">OBTÉN<br><strong>10%</strong><br>OFF</span>
+    </div>
+    <button class="promo-badge__close" id="promoClose" aria-label="Cerrar promoción">&times;</button>
+  </div>
+
+  <!-- Particle Canvas Background -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar__container">
+      <div class="topbar__left">
+        <a href="tel:+34600000000" class="topbar__link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +34 600 000 000
+        </a>
+        <span class="topbar__divider">|</span>
+        <a href="mailto:info@micglierjewelry.com" class="topbar__link">info@micglierjewelry.com</a>
+      </div>
+      <div class="topbar__center">
+        <span class="topbar__slogan">BRIGHT &bull; GLAM &bull; LUXURY</span>
+      </div>
+      <div class="topbar__right">
+        <div class="topbar__metals" id="metalTicker">
+          <span class="metal-price"><span class="metal-name">Oro</span> <span class="metal-value" id="goldPrice">$2,340.50</span></span>
+          <span class="metal-price"><span class="metal-name">Plata</span> <span class="metal-value" id="silverPrice">$31.20</span></span>
+          <span class="metal-price"><span class="metal-name">Platino</span> <span class="metal-value" id="platinumPrice">$1,045.00</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="header" id="header">
+    <div class="header__container">
+      <button class="header__menu-btn" id="menuToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="header__nav header__nav--left">
+        <a href="#colecciones" class="nav-link">Colecciones</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+      </nav>
+      <a href="#hero" class="header__logo">
+        <img src="assets/images/logo.png" alt="MicGlier Jewelry" />
+      </a>
+      <nav class="header__nav header__nav--right">
+        <a href="#personalizado" class="nav-link">Diseño Personalizado</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <div class="header__actions">
+        <button class="header__icon-btn" aria-label="Buscar" id="searchToggle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#hero" class="mobile-nav__link">Inicio</a>
+      <a href="#colecciones" class="mobile-nav__link">Colecciones</a>
+      <a href="#servicios" class="mobile-nav__link">Servicios</a>
+      <a href="#personalizado" class="mobile-nav__link">Diseño Personalizado</a>
+      <a href="#sobre" class="mobile-nav__link">Sobre Nosotros</a>
+      <a href="#contacto" class="mobile-nav__link">Contacto</a>
+    </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+      <div class="search-overlay__inner">
+        <input type="text" placeholder="Buscar joyas, colecciones..." class="search-overlay__input" />
+        <button class="search-overlay__close" id="searchClose" aria-label="Cerrar búsqueda">&times;</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge" data-animate="fade-down">NUEVA COLECCIÓN 2026</div>
+      <h1 class="hero__title" data-animate="fade-up">
+        <span class="hero__title-line">Donde el Lujo</span>
+        <span class="hero__title-line hero__title-line--accent">se Encuentra con</span>
+        <span class="hero__title-line">el Arte</span>
+      </h1>
+      <p class="hero__subtitle" data-animate="fade-up" data-delay="200">
+        Joyas exclusivas hechas a mano en Barcelona. Cada pieza cuenta una historia de elegancia y sofisticación.
+      </p>
+      <div class="hero__cta" data-animate="fade-up" data-delay="400">
+        <a href="#colecciones" class="btn btn--primary">Explorar Colecciones</a>
+        <a href="#personalizado" class="btn btn--outline">Diseño a Medida</a>
+      </div>
+      <div class="hero__scroll-indicator">
+        <div class="hero__scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+    <!-- Floating diamond shapes -->
+    <div class="hero__shapes">
+      <div class="floating-diamond floating-diamond--1"></div>
+      <div class="floating-diamond floating-diamond--2"></div>
+      <div class="floating-diamond floating-diamond--3"></div>
+    </div>
+  </section>
+
+  <!-- Marquee Banner -->
+  <div class="marquee">
+    <div class="marquee__track">
+      <span class="marquee__item">BRIGHT &diams; GLAM &diams; LUXURY</span>
+      <span class="marquee__item">JOYERÍA EXCLUSIVA EN BARCELONA</span>
+      <span class="marquee__item">DISEÑOS PERSONALIZADOS</span>
+      <span class="marquee__item">MANTENIMIENTO PROFESIONAL</span>
+      <span class="marquee__item">BRIGHT &diams; GLAM &diams; LUXURY</span>
+      <span class="marquee__item">JOYERÍA EXCLUSIVA EN BARCELONA</span>
+      <span class="marquee__item">DISEÑOS PERSONALIZADOS</span>
+      <span class="marquee__item">MANTENIMIENTO PROFESIONAL</span>
+    </div>
+  </div>
+
+  <!-- Collections Section -->
+  <section class="collections" id="colecciones">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">Nuestras Colecciones</span>
+        <h2 class="section-title">Piezas <span class="text-gold">Exclusivas</span></h2>
+        <p class="section-desc">Cada joya es una obra maestra, creada con los materiales más selectos y la artesanía más refinada.</p>
+      </div>
+      <div class="collections__grid">
+        <!-- Collection Card 1 -->
+        <div class="collection-card" data-animate="fade-up" data-delay="0">
+          <div class="collection-card__image">
+            <div class="collection-card__placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="collection-card__overlay">
+              <a href="#" class="btn btn--small">Ver Colección</a>
+            </div>
+          </div>
+          <div class="collection-card__info">
+            <h3>Anillos de Compromiso</h3>
+            <p>Diamantes y oro de 18K</p>
+            <span class="collection-card__price">Desde €2,500</span>
+          </div>
+        </div>
+        <!-- Collection Card 2 -->
+        <div class="collection-card collection-card--featured" data-animate="fade-up" data-delay="100">
+          <div class="collection-card__image">
+            <div class="collection-card__placeholder collection-card__placeholder--gold">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div class="collection-card__overlay">
+              <a href="#" class="btn btn--small">Ver Colección</a>
+            </div>
+            <span class="collection-card__badge">Bestseller</span>
+          </div>
+          <div class="collection-card__info">
+            <h3>Collares de Diamantes</h3>
+            <p>Piezas únicas artesanales</p>
+            <span class="collection-card__price">Desde €4,800</span>
+          </div>
+        </div>
+        <!-- Collection Card 3 -->
+        <div class="collection-card" data-animate="fade-up" data-delay="200">
+          <div class="collection-card__image">
+            <div class="collection-card__placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="collection-card__overlay">
+              <a href="#" class="btn btn--small">Ver Colección</a>
+            </div>
+          </div>
+          <div class="collection-card__info">
+            <h3>Pulseras de Oro</h3>
+            <p>Oro blanco, amarillo y rosa</p>
+            <span class="collection-card__price">Desde €1,200</span>
+          </div>
+        </div>
+        <!-- Collection Card 4 -->
+        <div class="collection-card" data-animate="fade-up" data-delay="300">
+          <div class="collection-card__image">
+            <div class="collection-card__placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="collection-card__overlay">
+              <a href="#" class="btn btn--small">Ver Colección</a>
+            </div>
+          </div>
+          <div class="collection-card__info">
+            <h3>Pendientes Exclusivos</h3>
+            <p>Gemas preciosas y diamantes</p>
+            <span class="collection-card__price">Desde €800</span>
+          </div>
+        </div>
+      </div>
+      <div class="collections__cta" data-animate="fade-up">
+        <a href="#" class="btn btn--primary">Ver Todas las Colecciones</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase / Featured Piece -->
+  <section class="showcase">
+    <div class="showcase__container">
+      <div class="showcase__visual" data-animate="fade-right">
+        <div class="showcase__image-frame">
+          <div class="showcase__placeholder-img">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <span>Pieza Destacada</span>
+          </div>
+          <div class="showcase__glow"></div>
+        </div>
+      </div>
+      <div class="showcase__content" data-animate="fade-left">
+        <span class="section-tag">Pieza Destacada</span>
+        <h2 class="showcase__title">Collar <span class="text-gold">Barcelona Eterna</span></h2>
+        <p class="showcase__desc">
+          Una obra maestra de oro de 18K con diamantes VVS1 engastados a mano. 
+          Inspirado en la arquitectura modernista de Barcelona, esta pieza captura 
+          la esencia de la ciudad en cada faceta.
+        </p>
+        <ul class="showcase__specs">
+          <li><span class="spec-label">Material</span><span class="spec-value">Oro 18K</span></li>
+          <li><span class="spec-label">Piedras</span><span class="spec-value">Diamantes VVS1 — 3.2ct</span></li>
+          <li><span class="spec-label">Peso</span><span class="spec-value">28.5g</span></li>
+          <li><span class="spec-label">Certificación</span><span class="spec-value">GIA Certified</span></li>
+        </ul>
+        <div class="showcase__price">
+          <span class="showcase__price-label">Precio</span>
+          <span class="showcase__price-value">€12,500</span>
+        </div>
+        <a href="#contacto" class="btn btn--primary">Solicitar Información</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="servicios">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">Nuestros Servicios</span>
+        <h2 class="section-title">Excelencia en Cada <span class="text-gold">Detalle</span></h2>
+        <p class="section-desc">Más que una joyería: somos tu aliado en el mundo del lujo.</p>
+      </div>
+      <div class="services__grid">
+        <div class="service-card" data-animate="fade-up" data-delay="0">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Venta de Joyas</h3>
+          <p class="service-card__desc">Colecciones exclusivas de anillos, collares, pulseras y pendientes. Oro, plata, diamantes y piedras preciosas de la más alta calidad.</p>
+          <a href="#colecciones" class="service-card__link">Explorar &rarr;</a>
+        </div>
+        <div class="service-card" data-animate="fade-up" data-delay="150">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Mantenimiento</h3>
+          <p class="service-card__desc">Limpieza profesional, restauración, cambio de piedras, ajuste de tallas y pulido. Devolvemos el brillo original a tus joyas más preciadas.</p>
+          <a href="#contacto" class="service-card__link">Solicitar Cita &rarr;</a>
+        </div>
+        <div class="service-card" data-animate="fade-up" data-delay="300">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Diseño Personalizado</h3>
+          <p class="service-card__desc">Crea la joya de tus sueños. Nuestros maestros joyeros transforman tu visión en una pieza única e irrepetible con tecnología CAD 3D.</p>
+          <a href="#personalizado" class="service-card__link">Empezar Proyecto &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Design Section -->
+  <section class="custom-design" id="personalizado">
+    <div class="custom-design__container">
+      <div class="custom-design__content" data-animate="fade-right">
+        <span class="section-tag">Tu Visión, Nuestra Artesanía</span>
+        <h2 class="custom-design__title">Diseño <span class="text-gold">Personalizado</span></h2>
+        <p class="custom-design__desc">
+          Desde el boceto inicial hasta la pieza final, te acompañamos en cada paso. 
+          Utilizamos tecnología de modelado 3D y técnicas artesanales centenarias para crear 
+          joyas que superan cualquier expectativa.
+        </p>
+        <div class="custom-design__steps">
+          <div class="step">
+            <div class="step__number">01</div>
+            <div class="step__content">
+              <h4>Consulta</h4>
+              <p>Conversamos sobre tu idea y preferencias</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__number">02</div>
+            <div class="step__content">
+              <h4>Diseño 3D</h4>
+              <p>Creamos un modelo digital de tu joya</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__number">03</div>
+            <div class="step__content">
+              <h4>Fabricación</h4>
+              <p>Nuestros maestros dan vida a tu diseño</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step__number">04</div>
+            <div class="step__content">
+              <h4>Entrega</h4>
+              <p>Recibe tu pieza con certificado de autenticidad</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contacto" class="btn btn--primary">Iniciar Mi Proyecto</a>
+      </div>
+      <div class="custom-design__visual" data-animate="fade-left">
+        <div class="custom-design__image-frame">
+          <div class="custom-design__placeholder">
+            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            <span>Diseño 3D</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats__container">
+      <div class="stat" data-animate="fade-up" data-delay="0">
+        <span class="stat__number" data-count="15">0</span>
+        <span class="stat__suffix">+</span>
+        <span class="stat__label">Años de Experiencia</span>
+      </div>
+      <div class="stat" data-animate="fade-up" data-delay="100">
+        <span class="stat__number" data-count="2500">0</span>
+        <span class="stat__suffix">+</span>
+        <span class="stat__label">Joyas Creadas</span>
+      </div>
+      <div class="stat" data-animate="fade-up" data-delay="200">
+        <span class="stat__number" data-count="500">0</span>
+        <span class="stat__suffix">+</span>
+        <span class="stat__label">Diseños Personalizados</span>
+      </div>
+      <div class="stat" data-animate="fade-up" data-delay="300">
+        <span class="stat__number" data-count="98">0</span>
+        <span class="stat__suffix">%</span>
+        <span class="stat__label">Clientes Satisfechos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="sobre">
+    <div class="section-container">
+      <div class="about__grid">
+        <div class="about__content" data-animate="fade-right">
+          <span class="section-tag">Sobre Nosotros</span>
+          <h2 class="section-title">La Tradición del <span class="text-gold">Lujo</span> en Barcelona</h2>
+          <p>
+            En MicGlier Jewelry fusionamos la artesanía tradicional con la innovación 
+            contemporánea. Cada pieza que sale de nuestro taller en el corazón de Barcelona 
+            es un testimonio de pasión, precisión y excelencia.
+          </p>
+          <p>
+            Nuestros maestros joyeros, con décadas de experiencia, trabajan con los 
+            materiales más selectos — oro de 18K, platino, diamantes certificados GIA y 
+            gemas preciosas — para crear joyas que trascienden el tiempo.
+          </p>
+          <div class="about__features">
+            <div class="about__feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Materiales Certificados</span>
+            </div>
+            <div class="about__feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Garantía de Por Vida</span>
+            </div>
+            <div class="about__feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>Envío Asegurado Internacional</span>
+            </div>
+          </div>
+        </div>
+        <div class="about__visual" data-animate="fade-left">
+          <div class="about__image-frame">
+            <div class="about__placeholder">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span>Nuestro Taller</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">Testimonios</span>
+        <h2 class="section-title">Lo que Dicen Nuestros <span class="text-gold">Clientes</span></h2>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial-card" data-animate="fade-up" data-delay="0">
+          <div class="testimonial-card__stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-card__text">"El anillo de compromiso que diseñaron para mí superó todas mis expectativas. Mi prometida lloró de emoción al verlo. ¡Gracias MicGlier!"</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">CM</div>
+            <div>
+              <strong>Carlos M.</strong>
+              <span>Barcelona</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-animate="fade-up" data-delay="150">
+          <div class="testimonial-card__stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-card__text">"Llevé el collar de mi abuela para restauración y quedó como nuevo. El servicio de mantenimiento es impecable. Profesionales de verdad."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">LA</div>
+            <div>
+              <strong>Laura A.</strong>
+              <span>Madrid</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-animate="fade-up" data-delay="300">
+          <div class="testimonial-card__stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="testimonial-card__text">"La experiencia de diseñar mi propia pulsera fue increíble. El equipo de MicGlier me guió en cada paso con paciencia y creatividad."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">MR</div>
+            <div>
+              <strong>María R.</strong>
+              <span>Valencia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram / Gallery Section -->
+  <section class="gallery">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">@micglierjewelry</span>
+        <h2 class="section-title">Síguenos en <span class="text-gold">Instagram</span></h2>
+      </div>
+      <div class="gallery__grid" data-animate="fade-up">
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>01</span></div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>02</span></div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>03</span></div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>04</span></div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>05</span></div>
+        </div>
+        <div class="gallery__item">
+          <div class="gallery__placeholder"><span>06</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contacto">
+    <div class="section-container">
+      <div class="contact__grid">
+        <div class="contact__info" data-animate="fade-right">
+          <span class="section-tag">Contacto</span>
+          <h2 class="section-title">Visítanos en <span class="text-gold">Barcelona</span></h2>
+          <p>Agenda una cita privada y vive la experiencia MicGlier.</p>
+          <div class="contact__details">
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>
+                <strong>Dirección</strong>
+                <p>Passeig de Gràcia, 08008 Barcelona</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <div>
+                <strong>Teléfono</strong>
+                <p><a href="tel:+34600000000">+34 600 000 000</a></p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><polyline points="22,3 12,13 2,3"/></svg>
+              <div>
+                <strong>Email</strong>
+                <p><a href="mailto:info@micglierjewelry.com">info@micglierjewelry.com</a></p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div>
+                <strong>Horario</strong>
+                <p>Lun - Sáb: 10:00 — 20:00</p>
+                <p>Cita previa disponible</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact__social">
+            <a href="#" class="contact__social-link" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="contact__social-link" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" class="contact__social-link" aria-label="WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="contact__form-wrapper" data-animate="fade-left">
+          <form class="contact__form" id="contactForm">
+            <h3 class="contact__form-title">Solicita una Cita Privada</h3>
+            <div class="form-group">
+              <input type="text" id="name" placeholder="Tu nombre completo" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required />
+              </div>
+              <div class="form-group">
+                <input type="tel" id="phone" placeholder="Teléfono" />
+              </div>
+            </div>
+            <div class="form-group">
+              <select id="service" required>
+                <option value="" disabled selected>Servicio de interés</option>
+                <option value="compra">Compra de Joyas</option>
+                <option value="mantenimiento">Mantenimiento / Reparación</option>
+                <option value="personalizado">Diseño Personalizado</option>
+                <option value="tasacion">Tasación</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea id="message" rows="4" placeholder="Cuéntanos sobre tu proyecto o consulta..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Enviar Solicitud</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="assets/images/logo.png" alt="MicGlier Jewelry" class="footer__logo" />
+          <p class="footer__tagline">Bright &bull; Glam &bull; Luxury</p>
+          <p class="footer__desc">Joyería de lujo en Barcelona desde hace más de 15 años. Excelencia artesanal en cada pieza.</p>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>Colecciones</h4>
+            <a href="#">Anillos</a>
+            <a href="#">Collares</a>
+            <a href="#">Pulseras</a>
+            <a href="#">Pendientes</a>
+            <a href="#">Relojes</a>
+          </div>
+          <div class="footer__col">
+            <h4>Servicios</h4>
+            <a href="#">Diseño Personalizado</a>
+            <a href="#">Mantenimiento</a>
+            <a href="#">Restauración</a>
+            <a href="#">Tasación</a>
+            <a href="#">Grabado</a>
+          </div>
+          <div class="footer__col">
+            <h4>Información</h4>
+            <a href="#">Sobre Nosotros</a>
+            <a href="#">Blog</a>
+            <a href="#">Política de Privacidad</a>
+            <a href="#">Términos y Condiciones</a>
+            <a href="#">FAQ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 MicGlier Jewelry. Todos los derechos reservados.</p>
+        <div class="footer__payment">
+          <span>Visa</span>
+          <span>Mastercard</span>
+          <span>Amex</span>
+          <span>PayPal</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/34600000000" class="whatsapp-float" aria-label="Chat por WhatsApp" target="_blank" rel="noopener">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

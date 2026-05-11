@@ -186,16 +186,122 @@
     });
   }
 
-  // ---------- Metal Ticker Update ----------
-  function updateTicker() {
-    var now = new Date();
+  // ---------- Metal Ticker — GoldAPI.io (1 actualización diaria a las 6am Barcelona) ----------
+  var GOLDAPI_KEY = 'goldapi-d6220d379a785008cde3a0c19970d4e1-io';
+  var CACHE_KEY = 'micglier_metal_prices';
+
+  function getBarcelonaDate() {
+    return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
+  }
+
+  function isCacheValid() {
+    try {
+      var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+      if (!cached || !cached.timestamp) return false;
+      var cachedDate = new Date(cached.timestamp);
+      var now = getBarcelonaDate();
+      // Cache is valid if it's from today (after 6am) and we haven't passed the next 6am
+      var todaySixAm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0);
+      if (now < todaySixAm) {
+        // Before 6am today — cache valid if from yesterday after 6am
+        var yesterdaySixAm = new Date(todaySixAm);
+        yesterdaySixAm.setDate(yesterdaySixAm.getDate() - 1);
+        return cachedDate >= yesterdaySixAm;
+      }
+      // After 6am today — cache valid if from today after 6am
+      return cachedDate >= todaySixAm;
+    } catch (e) { return false; }
+  }
+
+  function getCachedPrices() {
+    try {
+      return JSON.parse(localStorage.getItem(CACHE_KEY));
+    } catch (e) { return null; }
+  }
+
+  function savePrices(data) {
+    data.timestamp = new Date().toISOString();
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  }
+
+  function updateTickerUI(data) {
+    var goldEl = document.getElementById('goldPrice');
+    var silverEl = document.getElementById('silverPrice');
+    var platinumEl = document.getElementById('platinumPrice');
+    var goldChangeEl = document.getElementById('goldChange');
+    var silverChangeEl = document.getElementById('silverChange');
+    var platinumChangeEl = document.getElementById('platinumChange');
     var timeEl = document.getElementById('tickerTime');
-    if (timeEl) {
-      timeEl.textContent = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+
+    if (data.gold && goldEl) {
+      goldEl.textContent = '$' + data.gold.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (goldChangeEl) {
+        var pct = data.gold.change_pct;
+        goldChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+        goldChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
+      }
+    }
+    if (data.silver && silverEl) {
+      silverEl.textContent = '$' + data.silver.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (silverChangeEl) {
+        var pct = data.silver.change_pct;
+        silverChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+        silverChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
+      }
+    }
+    if (data.platinum && platinumEl) {
+      platinumEl.textContent = '$' + data.platinum.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (platinumChangeEl) {
+        var pct = data.platinum.change_pct;
+        platinumChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+        platinumChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
+      }
+    }
+    if (timeEl && data.timestamp) {
+      var d = new Date(data.timestamp);
+      timeEl.textContent = d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' })
+        + ' ' + d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Madrid' });
     }
   }
-  updateTicker();
-  setInterval(updateTicker, 60000);
+
+  function fetchMetalPrice(symbol) {
+    return fetch('https://www.goldapi.io/api/' + symbol + '/USD', {
+      headers: { 'x-access-token': GOLDAPI_KEY, 'Content-Type': 'application/json' }
+    }).then(function (res) { return res.json(); });
+  }
+
+  function fetchAllPrices() {
+    Promise.all([
+      fetchMetalPrice('XAU'),
+      fetchMetalPrice('XAG'),
+      fetchMetalPrice('XPT')
+    ]).then(function (results) {
+      var data = {};
+      if (results[0] && results[0].price) {
+        data.gold = { price: results[0].price, change_pct: results[0].ch || 0 };
+      }
+      if (results[1] && results[1].price) {
+        data.silver = { price: results[1].price, change_pct: results[1].ch || 0 };
+      }
+      if (results[2] && results[2].price) {
+        data.platinum = { price: results[2].price, change_pct: results[2].ch || 0 };
+      }
+      savePrices(data);
+      updateTickerUI(data);
+    }).catch(function (err) {
+      console.warn('GoldAPI fetch error:', err);
+      // Use cached data as fallback
+      var cached = getCachedPrices();
+      if (cached) updateTickerUI(cached);
+    });
+  }
+
+  // Main ticker logic
+  if (isCacheValid()) {
+    updateTickerUI(getCachedPrices());
+  } else {
+    fetchAllPrices();
+  }
 
   // ---------- Lazy Load Images ----------
   if ('loading' in HTMLImageElement.prototype) {

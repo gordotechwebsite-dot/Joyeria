@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.db
+backend/uploads/
+.env
+node_modules/

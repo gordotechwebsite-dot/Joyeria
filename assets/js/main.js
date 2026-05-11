@@ -188,119 +188,131 @@
 
   // ---------- Metal Ticker — GoldAPI.io (1 actualización diaria a las 6am Barcelona) ----------
   var GOLDAPI_KEY = 'goldapi-d6220d379a785008cde3a0c19970d4e1-io';
-  var CACHE_KEY = 'micglier_metal_prices';
+  var METALS_CACHE_KEY = 'micglier_metal_prices';
+  var CRYPTO_CACHE_KEY = 'micglier_crypto_prices';
 
   function getBarcelonaDate() {
     return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' }));
   }
 
-  function isCacheValid() {
+  function isCacheValid(cacheKey) {
     try {
-      var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+      var cached = JSON.parse(localStorage.getItem(cacheKey));
       if (!cached || !cached.timestamp) return false;
       var cachedDate = new Date(cached.timestamp);
       var now = getBarcelonaDate();
-      // Cache is valid if it's from today (after 6am) and we haven't passed the next 6am
       var todaySixAm = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0);
       if (now < todaySixAm) {
-        // Before 6am today — cache valid if from yesterday after 6am
         var yesterdaySixAm = new Date(todaySixAm);
         yesterdaySixAm.setDate(yesterdaySixAm.getDate() - 1);
         return cachedDate >= yesterdaySixAm;
       }
-      // After 6am today — cache valid if from today after 6am
       return cachedDate >= todaySixAm;
     } catch (e) { return false; }
   }
 
-  function getCachedPrices() {
-    try {
-      return JSON.parse(localStorage.getItem(CACHE_KEY));
-    } catch (e) { return null; }
+  function getCached(cacheKey) {
+    try { return JSON.parse(localStorage.getItem(cacheKey)); }
+    catch (e) { return null; }
   }
 
-  function savePrices(data) {
+  function saveCache(cacheKey, data) {
     data.timestamp = new Date().toISOString();
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    localStorage.setItem(cacheKey, JSON.stringify(data));
   }
 
-  function updateTickerUI(data) {
-    var goldEl = document.getElementById('goldPrice');
-    var silverEl = document.getElementById('silverPrice');
-    var platinumEl = document.getElementById('platinumPrice');
-    var goldChangeEl = document.getElementById('goldChange');
-    var silverChangeEl = document.getElementById('silverChange');
-    var platinumChangeEl = document.getElementById('platinumChange');
-    var timeEl = document.getElementById('tickerTime');
+  function updatePriceEl(priceId, changeId, price, pct, decimals) {
+    var priceEl = document.getElementById(priceId);
+    var changeEl = document.getElementById(changeId);
+    if (priceEl) {
+      priceEl.textContent = '$' + price.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    }
+    if (changeEl && typeof pct === 'number') {
+      changeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+      changeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
+    }
+  }
 
-    if (data.gold && goldEl) {
-      goldEl.textContent = '$' + data.gold.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (goldChangeEl) {
-        var pct = data.gold.change_pct;
-        goldChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-        goldChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
-      }
-    }
-    if (data.silver && silverEl) {
-      silverEl.textContent = '$' + data.silver.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (silverChangeEl) {
-        var pct = data.silver.change_pct;
-        silverChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-        silverChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
-      }
-    }
-    if (data.platinum && platinumEl) {
-      platinumEl.textContent = '$' + data.platinum.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      if (platinumChangeEl) {
-        var pct = data.platinum.change_pct;
-        platinumChangeEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-        platinumChangeEl.className = 'ticker-change ticker-change--' + (pct >= 0 ? 'up' : 'down');
-      }
-    }
-    if (timeEl && data.timestamp) {
-      var d = new Date(data.timestamp);
+  function updateMetalsUI(data) {
+    if (data.gold) updatePriceEl('goldPrice', 'goldChange', data.gold.price, data.gold.change_pct, 2);
+    if (data.silver) updatePriceEl('silverPrice', 'silverChange', data.silver.price, data.silver.change_pct, 2);
+    if (data.platinum) updatePriceEl('platinumPrice', 'platinumChange', data.platinum.price, data.platinum.change_pct, 2);
+    updateTimestamp(data.timestamp);
+  }
+
+  function updateCryptoUI(data) {
+    if (data.btc) updatePriceEl('btcPrice', 'btcChange', data.btc.price, data.btc.change_pct, 0);
+    if (data.eth) updatePriceEl('ethPrice', 'ethChange', data.eth.price, data.eth.change_pct, 0);
+    if (data.sol) updatePriceEl('solPrice', 'solChange', data.sol.price, data.sol.change_pct, 2);
+    if (data.xrp) updatePriceEl('xrpPrice', 'xrpChange', data.xrp.price, data.xrp.change_pct, 3);
+    updateTimestamp(data.timestamp);
+  }
+
+  function updateTimestamp(ts) {
+    var timeEl = document.getElementById('tickerTime');
+    if (timeEl && ts) {
+      var d = new Date(ts);
       timeEl.textContent = d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' })
         + ' ' + d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Madrid' });
     }
   }
 
+  // --- GoldAPI (Metals) ---
   function fetchMetalPrice(symbol) {
     return fetch('https://www.goldapi.io/api/' + symbol + '/USD', {
       headers: { 'x-access-token': GOLDAPI_KEY, 'Content-Type': 'application/json' }
     }).then(function (res) { return res.json(); });
   }
 
-  function fetchAllPrices() {
+  function fetchMetals() {
     Promise.all([
       fetchMetalPrice('XAU'),
       fetchMetalPrice('XAG'),
       fetchMetalPrice('XPT')
     ]).then(function (results) {
       var data = {};
-      if (results[0] && results[0].price) {
-        data.gold = { price: results[0].price, change_pct: results[0].ch || 0 };
-      }
-      if (results[1] && results[1].price) {
-        data.silver = { price: results[1].price, change_pct: results[1].ch || 0 };
-      }
-      if (results[2] && results[2].price) {
-        data.platinum = { price: results[2].price, change_pct: results[2].ch || 0 };
-      }
-      savePrices(data);
-      updateTickerUI(data);
+      if (results[0] && results[0].price) data.gold = { price: results[0].price, change_pct: results[0].ch || 0 };
+      if (results[1] && results[1].price) data.silver = { price: results[1].price, change_pct: results[1].ch || 0 };
+      if (results[2] && results[2].price) data.platinum = { price: results[2].price, change_pct: results[2].ch || 0 };
+      saveCache(METALS_CACHE_KEY, data);
+      updateMetalsUI(data);
     }).catch(function (err) {
       console.warn('GoldAPI fetch error:', err);
-      // Use cached data as fallback
-      var cached = getCachedPrices();
-      if (cached) updateTickerUI(cached);
+      var cached = getCached(METALS_CACHE_KEY);
+      if (cached) updateMetalsUI(cached);
     });
   }
 
-  // Main ticker logic
-  if (isCacheValid()) {
-    updateTickerUI(getCachedPrices());
+  // --- CoinGecko (Crypto) ---
+  function fetchCrypto() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple&vs_currencies=usd&include_24hr_change=true')
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        var data = {};
+        if (result.bitcoin) data.btc = { price: result.bitcoin.usd, change_pct: result.bitcoin.usd_24h_change || 0 };
+        if (result.ethereum) data.eth = { price: result.ethereum.usd, change_pct: result.ethereum.usd_24h_change || 0 };
+        if (result.solana) data.sol = { price: result.solana.usd, change_pct: result.solana.usd_24h_change || 0 };
+        if (result.ripple) data.xrp = { price: result.ripple.usd, change_pct: result.ripple.usd_24h_change || 0 };
+        saveCache(CRYPTO_CACHE_KEY, data);
+        updateCryptoUI(data);
+      }).catch(function (err) {
+        console.warn('CoinGecko fetch error:', err);
+        var cached = getCached(CRYPTO_CACHE_KEY);
+        if (cached) updateCryptoUI(cached);
+      });
+  }
+
+  // Main ticker logic — metals (daily at 6am), crypto (daily at 6am)
+  if (isCacheValid(METALS_CACHE_KEY)) {
+    updateMetalsUI(getCached(METALS_CACHE_KEY));
   } else {
-    fetchAllPrices();
+    fetchMetals();
+  }
+
+  if (isCacheValid(CRYPTO_CACHE_KEY)) {
+    updateCryptoUI(getCached(CRYPTO_CACHE_KEY));
+  } else {
+    fetchCrypto();
   }
 
   // ---------- Lazy Load Images ----------

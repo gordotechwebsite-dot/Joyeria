@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MicGlier Jewelry | Bright, Glam, Luxury — Barcelona</title>
+  <meta name="description" content="MicGlier Jewelry — Joyería de lujo en Barcelona. Venta de joyas exclusivas, mantenimiento profesional y diseños personalizados. Bright, Glam, Luxury." />
+  <meta name="keywords" content="joyería Barcelona, joyas de lujo, diseño personalizado joyas, mantenimiento joyas, MicGlier Jewelry, oro, diamantes, plata" />
+  <meta property="og:title" content="MicGlier Jewelry | Bright, Glam, Luxury" />
+  <meta property="og:description" content="Joyería de lujo en Barcelona. Joyas exclusivas, mantenimiento y diseños personalizados." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- Floating 10% Off Badge -->
+  <div class="promo-badge" id="promoBadge">
+    <div class="promo-badge__inner">
+      <span class="promo-badge__text">OBTÉN<br><strong>10%</strong><br>OFF</span>
+    </div>
+    <button class="promo-badge__close" id="promoClose" aria-label="Cerrar promoción">&times;</button>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar__container">
+      <div class="topbar__left">
+        <a href="tel:+34600000000" class="topbar__link">ATENCIÓN AL CLIENTE +34 600 000 000</a>
+        <span class="topbar__divider">|</span>
+        <a href="mailto:info@micglierjewelry.com" class="topbar__link">INFO@MICGLIERJEWELRY.COM</a>
+      </div>
+      <div class="topbar__right">
+        <span class="topbar__cta">Llama o escríbenos para atención VIP personalizada</span>
+        <button class="topbar__close-btn" id="topbarClose" aria-label="Cerrar barra">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="header" id="header">
+    <div class="header__top">
+      <div class="header__top-inner">
+        <!-- Search -->
+        <div class="header__search">
+          <button class="header__search-btn" id="searchToggle" aria-label="Buscar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </button>
+          <input type="text" placeholder="¿Qué estás buscando?" class="header__search-input" />
+        </div>
+        <!-- Left Nav -->
+        <nav class="header__nav header__nav--left">
+          <a href="#colecciones" class="nav-link">HOMBRE</a>
+          <a href="#colecciones" class="nav-link">MUJER</a>
+        </nav>
+        <!-- Center Logo -->
+        <a href="#" class="header__logo">
+          <img src="assets/images/logo.png" alt="MicGlier Jewelry" />
+        </a>
+        <!-- Right Nav -->
+        <nav class="header__nav header__nav--right">
+          <a href="#personalizado" class="nav-link">DISEÑO PERSONALIZADO</a>
+          <a href="#servicios" class="nav-link">SERVICIOS</a>
+        </nav>
+        <!-- Actions -->
+        <div class="header__actions">
+          <a href="#contacto" class="header__icon-btn" aria-label="Mi Cuenta">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="header__icon-label">Contacto</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Sub Navigation -->
+    <nav class="header__subnav">
+      <div class="header__subnav-inner">
+        <a href="#colecciones" class="subnav-link">Nuevas Llegadas</a>
+        <a href="#colecciones" class="subnav-link">Más Vendidos</a>
+        <a href="#colecciones" class="subnav-link">Anillos</a>
+        <a href="#colecciones" class="subnav-link">Collares</a>
+        <a href="#colecciones" class="subnav-link">Cadenas de Oro</a>
+        <a href="#colecciones" class="subnav-link">Pulseras</a>
+        <a href="#colecciones" class="subnav-link">Pendientes</a>
+        <a href="#personalizado" class="subnav-link">Diseño a Medida</a>
+      </div>
+    </nav>
+    <!-- Metal Prices Ticker -->
+    <div class="header__ticker">
+      <div class="header__ticker-inner">
+        <span class="ticker-item"><span class="ticker-label">Oro<small>(XAU)</small></span> <span class="ticker-value" id="goldPrice">$2,340.50</span> <span class="ticker-change ticker-change--up">+0.22%</span></span>
+        <span class="ticker-item"><span class="ticker-label">Plata<small>(XAG)</small></span> <span class="ticker-value" id="silverPrice">$31.20</span> <span class="ticker-change ticker-change--up">+1.45%</span></span>
+        <span class="ticker-item"><span class="ticker-label">Platino<small>(XPT)</small></span> <span class="ticker-value" id="platinumPrice">$1,045.00</span> <span class="ticker-change ticker-change--up">+0.87%</span></span>
+        <span class="ticker-item ticker-updated">Actualizado: <span id="tickerTime">4:18 PM</span></span>
+      </div>
+    </div>
+    <!-- Mobile Toggle -->
+    <button class="header__menu-btn" id="menuToggle" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#" class="mobile-nav__link">Inicio</a>
+      <a href="#colecciones" class="mobile-nav__link">Colecciones</a>
+      <a href="#servicios" class="mobile-nav__link">Servicios</a>
+      <a href="#personalizado" class="mobile-nav__link">Diseño Personalizado</a>
+      <a href="#sobre" class="mobile-nav__link">Sobre Nosotros</a>
+      <a href="#contacto" class="mobile-nav__link">Contacto</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero__left">
+      <h2 class="hero__tagline">BRIGHT &bull; GLAM &bull; LUXURY</h2>
+      <h1 class="hero__title">Joyería Exclusiva<br>en <span class="text-gold">Barcelona</span></h1>
+      <p class="hero__desc">Llama o chatea con un joyero personal para una experiencia única de lujo.</p>
+      <div class="hero__buttons">
+        <a href="tel:+34600000000" class="btn btn--red">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <div><strong>Llama a tu</strong><small>Joyero Personal</small></div>
+        </a>
+        <a href="#contacto" class="btn btn--dark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <div><strong>Chatea con</strong><small>Joyero Personal</small></div>
+        </a>
+      </div>
+    </div>
+    <div class="hero__right">
+      <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=900&q=80" alt="Joyería de lujo MicGlier Barcelona" class="hero__image" loading="eager" />
+    </div>
+  </section>
+
+  <!-- Custom Jewelry CTA Banner -->
+  <section class="custom-banner" id="personalizado">
+    <div class="custom-banner__container">
+      <div class="custom-banner__image">
+        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=700&q=80" alt="Diseño personalizado de joyas" loading="lazy" />
+      </div>
+      <div class="custom-banner__content">
+        <h2 class="custom-banner__title">Comienza tu Diseño <span class="text-gold">Personalizado</span></h2>
+        <p class="custom-banner__desc">Haz realidad la joya de tus sueños con nuestros maestros artesanos.</p>
+        <div class="custom-banner__buttons">
+          <a href="#contacto" class="btn btn--gold">INICIAR PROYECTO</a>
+          <a href="#galeria" class="btn btn--outline">Ver Diseños</a>
+        </div>
+      </div>
+      <!-- Product carousel preview -->
+      <div class="custom-banner__carousel" id="customCarousel">
+        <button class="carousel-btn carousel-btn--prev" aria-label="Anterior" data-carousel="custom" data-dir="prev">&#8249;</button>
+        <div class="carousel-track" id="customTrack">
+          <div class="product-card">
+            <div class="product-card__badge">Oro 18K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="Anillo de diamantes personalizado" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Anillo Diamantes Bespoke</h3>
+              <span class="product-card__price">€8,500</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro 18K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1515562141589-67f0d727b750?w=400&q=80" alt="Collar de oro personalizado" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Collar Barcelona Eterna</h3>
+              <span class="product-card__price">€12,500</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Platino</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" alt="Anillo de compromiso platino" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Anillo Compromiso Platino</h3>
+              <span class="product-card__price">€15,200</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro Rosa</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" alt="Pulsera de oro rosa" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Pulsera Oro Rosa Artesanal</h3>
+              <span class="product-card__price">€6,800</span>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-btn--next" aria-label="Siguiente" data-carousel="custom" data-dir="next">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Sellers Section -->
+  <section class="products-section" id="colecciones">
+    <div class="products-section__container">
+      <div class="products-section__header">
+        <h2 class="products-section__title"><span class="text-gold">MicGlier</span> Más Vendidos</h2>
+        <a href="#" class="products-section__viewall">Ver Todo</a>
+      </div>
+      <div class="products-section__carousel" id="bestsellersCarousel">
+        <button class="carousel-btn carousel-btn--prev" data-carousel="bestsellers" data-dir="prev" aria-label="Anterior">&#8249;</button>
+        <div class="carousel-track" id="bestsellersTrack">
+          <div class="product-card">
+            <div class="product-card__badge">Oro 14K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" alt="Anillo de Diamantes" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Anillo Solitario Diamante</h3>
+              <span class="product-card__price">€2,600</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro 18K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="Collar de Oro" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Collar Cuban Link Oro</h3>
+              <span class="product-card__price">€4,800</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro 14K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80" alt="Pendientes de Diamantes" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Pendientes Diamantes Portugueses</h3>
+              <span class="product-card__price">€1,350</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Plata .925</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&q=80" alt="Pulsera de Plata con Diamantes" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Pulsera Tennis Diamantes</h3>
+              <span class="product-card__price">€3,150</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro 18K</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="Anillo Eternity" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Anillo Eternity Diamantes</h3>
+              <span class="product-card__price">€7,400</span>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__badge">Oro Rosa</div>
+            <div class="product-card__image">
+              <img src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&q=80" alt="Reloj de Lujo" loading="lazy" />
+            </div>
+            <div class="product-card__info">
+              <h3>Reloj Oro Rosa Diamantes</h3>
+              <span class="product-card__price">€11,850</span>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-btn--next" data-carousel="bestsellers" data-dir="next" aria-label="Siguiente">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colección Anillos -->
+  <section class="products-section products-section--alt">
+    <div class="products-section__container">
+      <div class="products-section__header">
+        <h2 class="products-section__title">Anillos <span class="text-gold">de Lujo</span></h2>
+        <a href="#" class="products-section__viewall">Ver Todo</a>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card__badge">Oro 14K</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&q=80" alt="Anillo Solitario" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Anillo Solitario Clásico</h3>
+            <span class="product-card__price">€2,500</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge">Oro 18K</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=400&q=80" alt="Anillo Eternity" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Anillo Eternity Diamantes</h3>
+            <span class="product-card__price">€7,400</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge">Platino</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?w=400&q=80" alt="Anillo de Compromiso Platino" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Anillo Compromiso Halo</h3>
+            <span class="product-card__price">€9,600</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge sale">Sale</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1608042314453-ae338d80c427?w=400&q=80" alt="Anillo Cuban Link" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Anillo Cuban Link Diamantes</h3>
+            <span class="product-card__price"><span class="price-sale">€3,150</span> €2,600</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colección Cadenas -->
+  <section class="products-section">
+    <div class="products-section__container">
+      <div class="products-section__header">
+        <h2 class="products-section__title">Cadenas y Collares <span class="text-gold">Populares</span></h2>
+        <a href="#" class="products-section__viewall">Ver Todo</a>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card__badge">Oro 14K</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="Cadena Cuban Link" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Cadena Cuban Link Sólida</h3>
+            <span class="product-card__price">€4,500</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge">Oro 18K</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1515562141589-67f0d727b750?w=400&q=80" alt="Collar Diamantes Tennis" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Collar Tennis Diamantes</h3>
+            <span class="product-card__price">€12,800</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge">Oro 14K</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&q=80" alt="Cadena Rope" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Cadena Rope Oro Sólido</h3>
+            <span class="product-card__price">€3,350</span>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card__badge">Plata .925</div>
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&q=80" alt="Cadena Franco Plata" loading="lazy" />
+          </div>
+          <div class="product-card__info">
+            <h3>Cadena Franco Plata Diamantes</h3>
+            <span class="product-card__price">€2,200</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="servicios">
+    <div class="services__container">
+      <div class="services__header">
+        <span class="services__tag">NUESTROS SERVICIOS</span>
+        <h2 class="services__title">Excelencia en Cada <span class="text-gold">Detalle</span></h2>
+      </div>
+      <div class="services__grid">
+        <div class="service-card" data-animate="fade-up">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Venta de Joyas</h3>
+          <p class="service-card__desc">Colecciones exclusivas de anillos, collares, pulseras y pendientes con materiales de la más alta calidad.</p>
+          <a href="#colecciones" class="service-card__link">Explorar &rarr;</a>
+        </div>
+        <div class="service-card" data-animate="fade-up">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Mantenimiento</h3>
+          <p class="service-card__desc">Limpieza, pulido, reparación y restauración profesional. Tus joyas siempre como nuevas.</p>
+          <a href="#contacto" class="service-card__link">Solicitar &rarr;</a>
+        </div>
+        <div class="service-card" data-animate="fade-up">
+          <div class="service-card__icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+            </svg>
+          </div>
+          <h3 class="service-card__title">Diseño Personalizado</h3>
+          <p class="service-card__desc">Crea la joya de tus sueños. Nuestros artesanos transforman tu visión en una pieza única.</p>
+          <a href="#personalizado" class="service-card__link">Comenzar &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats__container">
+      <div class="stat-item" data-animate="fade-up">
+        <span class="stat-item__number" data-count="1500">0</span>
+        <span class="stat-item__label">Joyas Vendidas</span>
+      </div>
+      <div class="stat-item" data-animate="fade-up">
+        <span class="stat-item__number" data-count="15">0</span>
+        <span class="stat-item__label">Años de Experiencia</span>
+      </div>
+      <div class="stat-item" data-animate="fade-up">
+        <span class="stat-item__number" data-count="500">0</span>
+        <span class="stat-item__label">Diseños Personalizados</span>
+      </div>
+      <div class="stat-item" data-animate="fade-up">
+        <span class="stat-item__number" data-count="98">0</span>
+        <span class="stat-item__label">% Clientes Satisfechos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery / Instagram -->
+  <section class="gallery" id="galeria">
+    <div class="gallery__container">
+      <div class="gallery__header">
+        <span class="gallery__tag">GALERÍA</span>
+        <h2 class="gallery__title">Nuestro <span class="text-gold">Trabajo</span></h2>
+      </div>
+      <div class="gallery__grid">
+        <div class="gallery__item">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&q=80" alt="Anillo de compromiso" loading="lazy" />
+        </div>
+        <div class="gallery__item gallery__item--wide">
+          <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80" alt="Colección de joyas" loading="lazy" />
+        </div>
+        <div class="gallery__item">
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=80" alt="Pendientes exclusivos" loading="lazy" />
+        </div>
+        <div class="gallery__item">
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=80" alt="Cadena de oro" loading="lazy" />
+        </div>
+        <div class="gallery__item gallery__item--wide">
+          <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80" alt="Taller de diseño" loading="lazy" />
+        </div>
+        <div class="gallery__item">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80" alt="Pulsera de diamantes" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="sobre">
+    <div class="about__container">
+      <div class="about__image">
+        <img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=700&q=80" alt="Taller MicGlier Barcelona" loading="lazy" />
+      </div>
+      <div class="about__content">
+        <span class="about__tag">SOBRE NOSOTROS</span>
+        <h2 class="about__title">MicGlier <span class="text-gold">Jewelry</span></h2>
+        <p class="about__desc">Con más de 15 años de experiencia en el mundo de la joyería de lujo, MicGlier Jewelry es sinónimo de excelencia artesanal en Barcelona. Cada pieza es creada con pasión, precisión y los materiales más selectos.</p>
+        <p class="about__desc">Desde anillos de compromiso hasta diseños personalizados únicos, nuestro equipo de maestros joyeros transforma tus sueños en obras de arte portables.</p>
+        <div class="about__features">
+          <div class="about__feature">
+            <strong>Certificación GIA</strong>
+            <span>Diamantes certificados</span>
+          </div>
+          <div class="about__feature">
+            <strong>Garantía de por vida</strong>
+            <span>En todas nuestras piezas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="testimonials__container">
+      <div class="testimonials__header">
+        <span class="testimonials__tag">TESTIMONIOS</span>
+        <h2 class="testimonials__title">Lo que Dicen <span class="text-gold">Nuestros Clientes</span></h2>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial-card" data-animate="fade-up">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-card__text">"El anillo de compromiso que diseñaron para mí superó todas mis expectativas. La atención al detalle es increíble."</p>
+          <div class="testimonial-card__author">
+            <strong>María García</strong>
+            <span>Barcelona</span>
+          </div>
+        </div>
+        <div class="testimonial-card" data-animate="fade-up">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-card__text">"Excelente servicio de mantenimiento. Mis joyas quedaron como nuevas. Muy profesionales y atentos."</p>
+          <div class="testimonial-card__author">
+            <strong>Carlos Rodríguez</strong>
+            <span>Madrid</span>
+          </div>
+        </div>
+        <div class="testimonial-card" data-animate="fade-up">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-card__text">"Diseñaron un collar personalizado para mi esposa. La calidad es excepcional y el proceso fue muy transparente."</p>
+          <div class="testimonial-card__author">
+            <strong>Ahmed Al-Rashid</strong>
+            <span>Dubai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contacto">
+    <div class="contact__container">
+      <div class="contact__info">
+        <span class="contact__tag">CONTACTO</span>
+        <h2 class="contact__title">Visítanos en <span class="text-gold">Barcelona</span></h2>
+        <div class="contact__details">
+          <div class="contact__detail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <strong>Dirección</strong>
+              <span>Passeig de Gràcia, 08007 Barcelona</span>
+            </div>
+          </div>
+          <div class="contact__detail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <div>
+              <strong>Teléfono</strong>
+              <a href="tel:+34600000000">+34 600 000 000</a>
+            </div>
+          </div>
+          <div class="contact__detail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:info@micglierjewelry.com">info@micglierjewelry.com</a>
+            </div>
+          </div>
+          <div class="contact__detail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <strong>Horario</strong>
+              <span>Lun - Sáb: 10:00 - 20:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact__form-wrapper">
+        <form class="contact__form" id="contactForm">
+          <h3>Envíanos un Mensaje</h3>
+          <div class="form-row">
+            <input type="text" placeholder="Nombre completo" required />
+            <input type="email" placeholder="Email" required />
+          </div>
+          <input type="tel" placeholder="Teléfono" />
+          <select>
+            <option value="">Selecciona un servicio</option>
+            <option value="compra">Comprar Joya</option>
+            <option value="mantenimiento">Mantenimiento</option>
+            <option value="personalizado">Diseño Personalizado</option>
+            <option value="otro">Otro</option>
+          </select>
+          <textarea rows="4" placeholder="Tu mensaje..."></textarea>
+          <button type="submit" class="btn btn--gold btn--full">Enviar Mensaje</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="assets/images/logo.png" alt="MicGlier Jewelry" class="footer__logo" />
+          <p class="footer__slogan">BRIGHT &bull; GLAM &bull; LUXURY</p>
+          <p class="footer__brand-desc">Joyería de lujo en Barcelona desde 2010. Calidad, exclusividad y diseño en cada pieza.</p>
+        </div>
+        <div class="footer__links">
+          <h4>Colecciones</h4>
+          <a href="#colecciones">Anillos</a>
+          <a href="#colecciones">Collares</a>
+          <a href="#colecciones">Pulseras</a>
+          <a href="#colecciones">Pendientes</a>
+          <a href="#colecciones">Cadenas de Oro</a>
+        </div>
+        <div class="footer__links">
+          <h4>Servicios</h4>
+          <a href="#servicios">Venta de Joyas</a>
+          <a href="#servicios">Mantenimiento</a>
+          <a href="#personalizado">Diseño Personalizado</a>
+          <a href="#contacto">Consulta Gratis</a>
+        </div>
+        <div class="footer__links">
+          <h4>Información</h4>
+          <a href="#sobre">Sobre Nosotros</a>
+          <a href="#contacto">Contacto</a>
+          <a href="#">Política de Envío</a>
+          <a href="#">Términos y Condiciones</a>
+          <a href="#">Política de Privacidad</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 MicGlier Jewelry. Todos los derechos reservados.</p>
+        <div class="footer__payments">
+          <span>Visa</span>
+          <span>Mastercard</span>
+          <span>Amex</span>
+          <span>PayPal</span>
+          <span>Bizum</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/34600000000" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay__inner">
+      <input type="text" placeholder="Buscar joyas, colecciones..." class="search-overlay__input" autofocus />
+      <button class="search-overlay__close" id="searchClose" aria-label="Cerrar búsqueda">&times;</button>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

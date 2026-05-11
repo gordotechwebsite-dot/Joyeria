@@ -237,7 +237,6 @@
     if (data.gold) updatePriceEl('goldPrice', 'goldChange', data.gold.price, data.gold.change_pct, 2);
     if (data.silver) updatePriceEl('silverPrice', 'silverChange', data.silver.price, data.silver.change_pct, 2);
     if (data.platinum) updatePriceEl('platinumPrice', 'platinumChange', data.platinum.price, data.platinum.change_pct, 2);
-    updateTimestamp(data.timestamp);
   }
 
   function updateCryptoUI(data) {
@@ -245,17 +244,8 @@
     if (data.eth) updatePriceEl('ethPrice', 'ethChange', data.eth.price, data.eth.change_pct, 0);
     if (data.sol) updatePriceEl('solPrice', 'solChange', data.sol.price, data.sol.change_pct, 2);
     if (data.xrp) updatePriceEl('xrpPrice', 'xrpChange', data.xrp.price, data.xrp.change_pct, 3);
-    updateTimestamp(data.timestamp);
   }
 
-  function updateTimestamp(ts) {
-    var timeEl = document.getElementById('tickerTime');
-    if (timeEl && ts) {
-      var d = new Date(ts);
-      timeEl.textContent = d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' })
-        + ' ' + d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Madrid' });
-    }
-  }
 
   // --- GoldAPI (Metals) ---
   function fetchMetalPrice(symbol) {

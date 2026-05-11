@@ -315,6 +315,15 @@
     fetchCrypto();
   }
 
+  // ---------- Mobile Ticker Marquee ----------
+  if (window.innerWidth <= 768) {
+    var tickerInner = document.getElementById('tickerTrack');
+    if (tickerInner) {
+      var clone = tickerInner.innerHTML;
+      tickerInner.innerHTML = clone + clone;
+    }
+  }
+
   // ---------- Lazy Load Images ----------
   if ('loading' in HTMLImageElement.prototype) {
     // Native lazy loading supported

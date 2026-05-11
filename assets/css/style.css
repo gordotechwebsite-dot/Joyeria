@@ -1257,18 +1257,25 @@ textarea { resize: vertical; }
   .header__subnav { display: none; }
   .header__ticker {
     padding: 8px 0;
+    overflow: hidden;
   }
   .header__ticker-inner {
     padding: 0 16px;
     gap: 16px;
     font-size: 0.7rem;
-    overflow-x: auto;
+    overflow: visible;
     justify-content: flex-start;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    animation: tickerScroll 20s linear infinite;
+    width: max-content;
   }
   .header__ticker-inner::-webkit-scrollbar { display: none; }
   .ticker-updated { display: none; }
+  @keyframes tickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
   /* Mobile nav — luxury style */
   .mobile-nav {
